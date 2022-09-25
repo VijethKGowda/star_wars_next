@@ -35,7 +35,7 @@ const FilmList = (url) => {
 
   return (
     <div className='text-white'>
-      <Disclosure as="div" key={data?.data.title} className="pt-6">
+      <Disclosure as="div" key={data?.data.title} className="p-6">
         {({ open }) => (
           <>
             <dt className="text-lg">
@@ -101,7 +101,7 @@ export default function Character() {
           <Stat value={data?.data.skin_color} title={"Skin Color"} />
           <Stat value={data?.data.birth_year} title={"Birth Year"} />
         </div>
-        <div className='text-gray-200 font-semibold text-2xl mt-9'>{data?.data?.films?.length} Films of {data?.data.name}</div>
+        <div className='text-gray-200 font-semibold text-2xl my-9'>{data?.data?.films?.length} Films of {data?.data.name}</div>
         {
           data?.data?.films?.map(item =>
             <>

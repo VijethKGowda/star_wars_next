@@ -38,6 +38,10 @@ export default function Search() {
     <>
       <Head>
         <title>Search</title>
+        <meta
+          name="search page"
+          content="noindex"
+        />
       </Head>
       <main className="mx-auto my-10" >
         <div className="grid gap-12 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">

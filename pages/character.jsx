@@ -74,8 +74,8 @@ export default function Character() {
       <Head>
         <title>About - Spencer Sharp</title>
         <meta
-          name="description"
-          content="I’m Spencer Sharp. I live in New York City, where I design the future."
+          name="Character page"
+          content="noindex"
         />
       </Head>
 
@@ -92,6 +92,7 @@ export default function Character() {
           <Stat value={person.skin_color} title={"Skin Color"} />
           <Stat value={person.birth_year} title={"Birth Year"} />
         </div>
+        <div className='text-gray-200 font-semibold text-2xl mt-9'>{person?.films?.length} Films of {person.name}</div>
         {
           person?.films?.map(item =>
             <>

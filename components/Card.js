@@ -16,13 +16,11 @@ const ImageDisplay = ({ color }) =>
   </svg>
 
 const Card = ({ id, item, key }) => {
-  const color = ["#00A264", "#0123A2", "#FF2606", "#98FCD9", "#D6FAFF", "#F5ED17", "#387DEB", "#7B6958", "#4F0E45", "#293B4B"]
 
   return (
-
     <Link href={`/character?id=${id}`} key={key}>
       <div className="w-full flex flex-col sm:flex-row gap-6 max-w-md p-7 mx-auto rounded-lg shadow-xl bg-black border border-yellow-400 bg-opacity-90 text-white items-center drop-shadow-glow cursor-pointer transition duration-150 ease-in-out hover:scale-105">
-        <ImageDisplay color={color[Math.floor(Math.random() * color.length)]} />
+        <ImageDisplay color="#6D8AFF" />
         <div className="w-full sm:w-3/4">
           <div className="text-lg text-white">{item.name}</div>
           <div className="mt-4 flex w-full justify-between gap-4">

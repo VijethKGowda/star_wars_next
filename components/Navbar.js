@@ -26,8 +26,8 @@ const Navbar = () => {
       <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-12">
         <div className="flex h-16 justify-between">
           <div className="flex px-2 lg:px-0">
-            <Link href={'/'} className="flex flex-shrink-0 items-center cursor-pointer">
-              <Logo className="block w-8 sm:w-12 md:w-16" />
+            <Link href={'/'} className="flex flex-shrink-0 items-center">
+              <Logo className="block w-8 sm:w-12 md:w-16 cursor-pointer" />
             </Link>
           </div>
         </div>
@@ -50,7 +50,7 @@ const Navbar = () => {
                   autoComplete='off'
                   className="block w-full rounded-bl-md rounded-tl-md border border-blue-500 bg-black text-white py-3 pl-10 pr-3 leading-5 placeholder-gray-500 focus:border-blue-500 focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-blue-500 sm:text-sm"
                   placeholder="Search"
-                  type="search"
+                  type="text"
                 />
               </div>
             </div>
@@ -66,7 +66,7 @@ const Navbar = () => {
           }
         </div>
       </div>
-    </nav>
+    </nav >
   )
 }
 

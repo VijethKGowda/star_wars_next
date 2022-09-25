@@ -15,10 +15,12 @@ const Logo = (props) => {
 const Navbar = () => {
   const { query } = useRouter();
   const [search, setSearch] = useState("")
+  const router = useRouter()
 
   useEffect(() => {
-    if (query?.term)
+    if (query?.term !== undefined)
       setSearch(query?.term)
+    else setSearch("")
   }, [query?.term])
 
   return (
@@ -51,6 +53,7 @@ const Navbar = () => {
                   className="block w-full rounded-bl-md rounded-tl-md border border-blue-500 bg-black text-white py-3 pl-10 pr-3 leading-5 placeholder-gray-500 focus:border-blue-500 focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-blue-500 sm:text-sm"
                   placeholder="Search"
                   type="text"
+                  onKeyDown={(e) => { e.key === 'Enter' && search ? router.push(`/search?term=${search}`) : null }}
                 />
               </div>
             </div>

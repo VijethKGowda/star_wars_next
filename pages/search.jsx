@@ -11,7 +11,6 @@ export default function Search() {
   const { query } = useRouter();
 
   const searchCharacter = ({ pageParam = 1 }) => {
-    console.log("haha", query.term)
     return axios.get(`https://swapi.dev/api/people/?search=${query.term}&page=${pageParam}`)
   }
 
@@ -33,7 +32,6 @@ export default function Search() {
   if (isError) {
     return <h2 className='text-white w-full text-center mt-10'>{error.message}</h2>
   }
-
 
   return (
     <>

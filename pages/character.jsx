@@ -101,14 +101,16 @@ export default function Character() {
           <Stat value={data?.data.skin_color} title={"Skin Color"} />
           <Stat value={data?.data.birth_year} title={"Birth Year"} />
         </div>
-        <div className='text-gray-200 font-semibold text-2xl my-9'>{data?.data?.films?.length} Films of {data?.data.name}</div>
-        {
-          data?.data?.films?.map(item =>
-            <>
-              <FilmList url={item} />
-            </>
-          )
-        }
+        <div className='text-gray-200 font-semibold text-2xl mt-9'>{data?.data?.films?.length} Films of {data?.data.name}</div>
+        <div className='mb-9'>
+          {
+            data?.data?.films?.map(item =>
+              <>
+                <FilmList url={item} />
+              </>
+            )
+          }
+        </div>
       </main>
     </>
   )

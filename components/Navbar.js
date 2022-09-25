@@ -1,6 +1,7 @@
 import { MagnifyingGlassIcon } from '@heroicons/react/20/solid'
-import Image from 'next/image'
-// import logo from '../images/logo.svg'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+import { useEffect, useState } from 'react'
 
 const Logo = (props) => {
   return (
@@ -12,37 +13,57 @@ const Logo = (props) => {
 }
 
 const Navbar = () => {
+  const { query } = useRouter();
+  const [search, setSearch] = useState("")
+
+  useEffect(() => {
+    if (query?.term)
+      setSearch(query?.term)
+  }, [query?.term])
+
   return (
     <nav className="shadow">
       <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-12">
         <div className="flex h-16 justify-between">
           <div className="flex px-2 lg:px-0">
-            <div className="flex flex-shrink-0 items-center">
+            <Link href={'/'} className="flex flex-shrink-0 items-center cursor-pointer">
               <Logo className="block w-8 sm:w-12 md:w-16" />
-            </div>
+            </Link>
           </div>
         </div>
 
-        <div className="w-full mt-3 flex justify-between">
-          <div className='w-full items-center'>
-            <label htmlFor="search" className="sr-only">
-              Search
-            </label>
-            <div className="relative">
-              <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                <MagnifyingGlassIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
+        <div className='flex flex-col md:flex-row mt-3 gap-4 md:gap-2'>
+          <div className="w-full flex justify-between">
+            <div className='w-full items-center'>
+              <label htmlFor="search" className="sr-only">
+                Search
+              </label>
+              <div className="relative">
+                <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                  <MagnifyingGlassIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
+                </div>
+                <input
+                  id="search"
+                  name="search"
+                  onChange={(e) => { setSearch(e.target.value) }}
+                  value={search}
+                  autoComplete='off'
+                  className="block w-full rounded-bl-md rounded-tl-md border border-blue-500 bg-black text-white py-3 pl-10 pr-3 leading-5 placeholder-gray-500 focus:border-blue-500 focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-blue-500 sm:text-sm"
+                  placeholder="Search"
+                  type="search"
+                />
               </div>
-              <input
-                id="search"
-                name="search"
-                autoComplete='off'
-                className="block w-full rounded-bl-md rounded-tl-md border border-blue-700 bg-black text-white py-3 pl-10 pr-3 leading-5 placeholder-gray-500 focus:border-blue-700 focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-blue-700 sm:text-sm"
-                placeholder="Search"
-                type="search"
-              />
             </div>
+            <Link href={`/search?term=${search}`}>
+              <button className='text-white rounded-br-md rounded-tr-md border border-blue-500 bg-black py-2 px-5 leading-5 placeholder-gray-500 focus:border-blue-500 focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-blue-500 sm:text-sm'>Search</button>
+            </Link>
           </div>
-          <button className='text-white rounded-br-md rounded-tr-md border border-blue-700 bg-black py-2 px-4 leading-5 placeholder-gray-500 focus:border-blue-700 focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-blue-700 sm:text-sm'>Search</button>
+          {
+            search ?
+              <Link href={`/`}>
+                <button onClick={() => { setSearch("") }} className='text-red-500 rounded-md border border-blue-500 bg-black py-3 px-4 leading-5 placeholder-gray-500 focus:border-blue-500 focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-blue-500 sm:text-sm'>Clear</button>
+              </Link> : null
+          }
         </div>
       </div>
     </nav>

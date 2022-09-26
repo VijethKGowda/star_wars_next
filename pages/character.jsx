@@ -3,7 +3,7 @@ import axios from 'axios';
 import Head from 'next/head'
 import { Disclosure } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/24/outline'
-import { useRouter } from 'next/router';
+import Router, { useRouter } from 'next/router';
 import { useQuery } from 'react-query';
 
 function classNames(...classes) {
@@ -88,10 +88,14 @@ export default function Character() {
         />
       </Head>
 
+
       <main className="mt-9" >
-        <h1 className="text-white text-2xl sm:text-3xl ld:text-4xl font-semibold">
-          {data?.data.name}
-        </h1>
+        <div className='w-full flex justify-between items-center mt-5'>
+          <h1 className="text-white text-2xl sm:text-3xl ld:text-4xl font-semibold">
+            {data?.data.name}
+          </h1>
+          <div className='text-white cursor-pointer' onClick={() => Router.back()}>Go Back</div>
+        </div>
         <div className='mt-9 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 p-12 border bg-gray-900 border-gray-500 rounded-lg'>
           <Stat value={data?.data.height} title={"Height"} />
           <Stat value={data?.data.gender} title={"Gender"} />

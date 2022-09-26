@@ -1,6 +1,6 @@
 import axios from 'axios'
 import Head from 'next/head'
-import { useInfiniteQuery } from 'react-query'
+import { useInfiniteQuery } from '@tanstack/react-query'
 import { Fragment } from 'react'
 import Button from '../components/Button'
 import Card from '../components/Card'
@@ -15,7 +15,8 @@ export default function Home() {
     data,
     fetchNextPage,
     hasNextPage,
-    isError
+    isError,
+    isFetchingNextPage
   } = useInfiniteQuery(['characters'], fetchCharacters, {
     getNextPageParam: (lastPage) => Number(lastPage?.data?.next?.charAt(lastPage?.data?.next?.length - 1)) || false
   })
@@ -51,9 +52,11 @@ export default function Home() {
         <div className="mt-10 mx-auto w-full">
           {hasNextPage ?
             <Button
-              onClick={() => { fetchNextPage() }}
+              onClick={() => { isFetchingNextPage ? null : fetchNextPage() }}
             >
-              Load More
+              {
+                isFetchingNextPage ? 'Loading...' : 'Load More'
+              }
             </Button> : null
           }
         </div>

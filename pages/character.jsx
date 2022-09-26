@@ -4,7 +4,7 @@ import Head from 'next/head'
 import { Disclosure } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/24/outline'
 import Router, { useRouter } from 'next/router';
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')

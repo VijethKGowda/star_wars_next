@@ -35,7 +35,7 @@ const FilmList = (url) => {
 
   return (
     <div className='text-white'>
-      <Disclosure as="div" key={data?.data.title} className="p-6">
+      <Disclosure as="div" key={data?.data.title} className="pt-6">
         {({ open }) => (
           <>
             <dt className="text-lg">

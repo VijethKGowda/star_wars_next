@@ -37,7 +37,9 @@ export default function Home() {
             return (
               <Fragment key={i}>
                 {group.data.results.map((item, index) => (
-                  <Card id={item.url.match(/\d+/)[0]} item={item} key={item.birth_year + index} />
+                  <Fragment key={item.birth_year + index}>
+                    <Card id={item.url.match(/\d+/)[0]} item={item} />
+                  </Fragment>
                 ))}
               </Fragment>
             )
@@ -50,7 +52,7 @@ export default function Home() {
             </Button> : null
           }
         </div>
-      </main>
+      </main >
 
       {/* <footer className={styles.footer}>
         <a
@@ -64,6 +66,6 @@ export default function Home() {
           </span>
         </a>
       </footer> */}
-    </div>
+    </div >
   )
 }

@@ -1,13 +1,8 @@
-import axios from 'axios'
 import Head from 'next/head'
-import { useInfiniteQuery } from '@tanstack/react-query'
 import { Fragment } from 'react'
 import Button from '../components/Button'
 import Card from '../components/Card'
-
-const fetchCharacters = ({ pageParam = 1 }) => {
-  return axios.get(`https://swapi.dev/api/people/?page=${pageParam}`)
-}
+import { useFetchCharacters } from './api/swapi'
 
 export default function Home() {
   const {
@@ -16,10 +11,9 @@ export default function Home() {
     fetchNextPage,
     hasNextPage,
     isError,
-    isFetchingNextPage
-  } = useInfiniteQuery(['characters'], fetchCharacters, {
-    getNextPageParam: (lastPage) => Number(lastPage?.data?.next?.charAt(lastPage?.data?.next?.length - 1)) || false
-  })
+    isFetchingNextPage,
+    error
+  } = useFetchCharacters()
 
   if (isLoading) {
     return <h2 className='text-white w-full text-center mt-10'>Loading...</h2>
@@ -51,12 +45,8 @@ export default function Home() {
         </div>
         <div className="mt-10 mx-auto w-full">
           {hasNextPage ?
-            <Button
-              onClick={() => { isFetchingNextPage ? null : fetchNextPage() }}
-            >
-              {
-                isFetchingNextPage ? 'Loading...' : 'Load More'
-              }
+            <Button onClick={() => { isFetchingNextPage ? null : fetchNextPage() }}>
+              {isFetchingNextPage ? 'Loading...' : 'Load More'}
             </Button> : null
           }
         </div>

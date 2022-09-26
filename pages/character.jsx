@@ -1,10 +1,9 @@
 
-import axios from 'axios';
 import Head from 'next/head'
 import { Disclosure } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/24/outline'
 import Router, { useRouter } from 'next/router';
-import { useQuery } from '@tanstack/react-query';
+import { useFetchFilms, useFetchSingleCharacter } from './api/swapi';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -20,10 +19,7 @@ const Stat = ({ value, title }) => {
 }
 
 const FilmList = (url) => {
-  const fetchFilm = () => {
-    return axios.get(url.url)
-  }
-  const { isLoading, isError, data, error } = useQuery(['film', url.url], fetchFilm, { enabled: !!url.url })
+  const { isLoading, isError, data, error } = useFetchFilms(url.url.match(/\d+/)[0])
 
   if (isLoading) {
     return <h2 className='text-white w-full'>Loading...</h2>
@@ -64,11 +60,7 @@ const FilmList = (url) => {
 
 export default function Character() {
   const { query } = useRouter();
-
-  const fetchCharacter = () => {
-    return axios.get(`https://swapi.dev/api/people/${query?.id}`)
-  }
-  const { isLoading, isError, data, error } = useQuery(['character', query?.id], fetchCharacter, { enabled: !!query?.id })
+  const { isLoading, isError, data, error } = useFetchSingleCharacter(query?.id)
 
   if (isLoading) {
     return <h2 className='text-white w-full text-center mt-10'>Loading...</h2>

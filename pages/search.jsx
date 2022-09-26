@@ -6,23 +6,19 @@ import { Fragment } from 'react';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import Button from '../components/Button';
 import Card from '../components/Card';
+import { useFetchCharacters } from './api/swapi';
 
 export default function Search() {
   const { query } = useRouter();
-
-  const searchCharacter = ({ pageParam = 1 }) => {
-    return axios.get(`https://swapi.dev/api/people/?search=${query.term}&page=${pageParam}`)
-  }
-
   const {
     isLoading,
     data,
     fetchNextPage,
     hasNextPage,
-    isError
-  } = useInfiniteQuery(['characters', query.term], searchCharacter, {
-    getNextPageParam: (lastPage) => Number(lastPage?.data?.next?.charAt(lastPage?.data?.next?.length - 1)) || false
-  }, { enabled: !!query.term })
+    isError,
+    isFetchingNextPage,
+    error,
+  } = useFetchCharacters(query.term)
 
 
   if (isLoading) {
@@ -56,10 +52,8 @@ export default function Search() {
         </div>
         <div className="mt-10 mx-auto w-full">
           {hasNextPage ?
-            <Button
-              onClick={() => { fetchNextPage() }}
-            >
-              Load More
+            <Button onClick={() => { isFetchingNextPage ? null : fetchNextPage() }}>
+              {isFetchingNextPage ? 'Loading...' : 'Load More'}
             </Button> : null
           }
         </div>

@@ -3,7 +3,6 @@ import axios from 'axios';
 import Head from 'next/head'
 import { useRouter } from 'next/router';
 import { Fragment } from 'react';
-import { useInfiniteQuery } from '@tanstack/react-query';
 import Button from '../components/Button';
 import Card from '../components/Card';
 import { useFetchCharacters } from '../api/swapi';
@@ -52,7 +51,7 @@ export default function Search() {
         </div>
         <div className="mt-10 mx-auto w-full">
           {hasNextPage ?
-            <Button onClick={fetchNextPage} disable={isFetchingNextPage}>
+            <Button className="rounded-md w-full" onClick={fetchNextPage} disable={isFetchingNextPage}>
               {isFetchingNextPage ? 'Loading...' : 'Load More'}
             </Button> : null
           }

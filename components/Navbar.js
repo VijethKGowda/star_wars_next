@@ -2,6 +2,7 @@ import { MagnifyingGlassIcon } from '@heroicons/react/20/solid'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
+import Button from './Button'
 
 const Logo = (props) => {
   return (
@@ -56,13 +57,13 @@ const Navbar = () => {
               </div>
             </div>
             <Link href={`/search?term=${search}`}>
-              <button type='submit' className='text-white rounded-br-md rounded-tr-md border border-blue-500 bg-black py-2 px-5 leading-5 placeholder-gray-500 focus:border-blue-500 focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-blue-500 sm:text-sm'>Search</button>
+              <Button type='submit' className='text-white rounded-br-md rounded-tr-md border border-blue-500 py-2 px-5 leading-5 placeholder-gray-500 focus:border-blue-500 focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-blue-500 sm:text-sm'>Search</Button>
             </Link>
           </form>
           {
             search ?
               <Link href={`/`}>
-                <button onClick={() => { setSearch("") }} className='text-red-500 rounded-md border border-blue-500 bg-black py-3 px-4 leading-5 placeholder-gray-500 focus:border-blue-500 focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-blue-500 sm:text-sm'>Clear</button>
+                <Button onClick={() => { setSearch("") }} className='text-red-500 rounded-md border border-blue-500 py-3 px-4 leading-5 placeholder-gray-500 focus:border-blue-500 focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-blue-500 sm:text-sm'>Clear</Button>
               </Link> : null
           }
         </div>

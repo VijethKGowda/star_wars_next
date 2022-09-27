@@ -47,7 +47,7 @@ export default function Home() {
         </div>
         <div className="mt-10 mx-auto w-full">
           {hasNextPage ?
-            <Button onClick={fetchNextPage} disable={isFetchingNextPage}>
+            <Button className="rounded-md w-full" onClick={fetchNextPage} disable={isFetchingNextPage}>
               {isFetchingNextPage ? 'Loading...' : 'Load More'}
             </Button> : null
           }

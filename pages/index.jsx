@@ -1,8 +1,13 @@
 import Head from 'next/head'
-import { Fragment } from 'react'
+import { Fragment, useMemo } from 'react'
 import Button from '../components/Button'
 import Card from '../components/Card'
-import { useFetchCharacters } from '../api/swapi'
+import { useInfiniteQuery } from '@tanstack/react-query'
+import axios from 'axios'
+
+const fetchCharacters = ({ pageParam = 1 }) => {
+  return axios.get(`https://swapi.dev/api/people/?page=${pageParam}`)
+}
 
 export default function Home() {
   const {
@@ -11,9 +16,12 @@ export default function Home() {
     fetchNextPage,
     hasNextPage,
     isError,
-    isFetchingNextPage,
-    error
-  } = useFetchCharacters()
+    isFetchingNextPage
+  } = useInfiniteQuery(['characters'], fetchCharacters, {
+    getNextPageParam: (lastPage) => Number(lastPage?.data?.next?.charAt(lastPage?.data?.next?.length - 1)) || false
+  })
+
+  const allItems = useMemo(() => data?.pages?.flatMap(page => page?.data?.results || []), [data])
 
   if (isLoading) {
     return <h2 className='text-white w-full text-center mt-10'>Loading...</h2>
@@ -33,19 +41,13 @@ export default function Home() {
 
       <main className="mx-auto my-10" >
         <div className="grid gap-12 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-          {data?.pages.map((group, i) => {
-            return (
-              <Fragment key={i}>
-                {group.data.results.length ? group.data.results.map((item, index) => (
-                  <Card id={item.url.match(/\d+/)[0]} item={item} key={item.birth_year + index} />
-                )) : <h1 className='text-white w-full text-center mt-10'>No character found.</h1>}
-              </Fragment>
-            )
-          })}
+          {allItems.length ? allItems.map((item, index) => (
+            <Card id={item.url.match(/\d+/)[0]} item={item} key={item.birth_year + index} />
+          )) : <h1 className='text-white w-full text-center mt-10'>No character found.</h1>}
         </div>
         <div className="mt-10 mx-auto w-full">
           {hasNextPage ?
-            <Button className="rounded-md w-full" onClick={fetchNextPage} disable={isFetchingNextPage}>
+            <Button className="rounded-md w-full" onClick={() => fetchNextPage()} disable={isFetchingNextPage}>
               {isFetchingNextPage ? 'Loading...' : 'Load More'}
             </Button> : null
           }

@@ -9,8 +9,5 @@ describe('Home', () => {
   it('renders a heading from the main page', async () => {
     render(<QueryClientProvider client={queryClient}><Home /></QueryClientProvider>)
     expect(screen.getByText('Loading...')).toBeInTheDocument();
-    await waitFor(() => expect(screen.getByText("Luke Skywalker")).toBeInTheDocument(), {
-      timeout: 4000,
-    });
   })
 })

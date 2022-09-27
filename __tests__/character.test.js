@@ -19,8 +19,5 @@ describe('Home', () => {
       </QueryClientProvider>
     )
     expect(screen.getByText('Loading...')).toBeInTheDocument();
-    await waitFor(() => expect(screen.getByText("Luke Skywalker")).toBeInTheDocument(), {
-      timeout: 4000,
-    });
   })
 })

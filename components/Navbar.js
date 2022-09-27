@@ -16,12 +16,26 @@ const Logo = (props) => {
 const Navbar = () => {
   const { query } = useRouter();
   const [search, setSearch] = useState("")
+  const [inputError, setInputError] = useState(false)
   const router = useRouter()
+
+  const onSubmit = (e) => {
+    e.preventDefault()
+    if (!search) setInputError(true)
+    else {
+      setInputError(false)
+      router.push(`/search?term=${search}`)
+    }
+  }
 
   useEffect(() => {
     if (query?.term !== undefined)
       setSearch(query?.term)
   }, [query?.term])
+
+  useEffect(() => {
+    if (search) setInputError(false)
+  }, [search])
 
   return (
     <nav className="shadow">
@@ -35,7 +49,7 @@ const Navbar = () => {
         </div>
 
         <div className='flex flex-col md:flex-row mt-3 gap-4 md:gap-2'>
-          <form onSubmit={() => { router.push(`/search?term=${search}`) }} className="w-full flex justify-between">
+          <form onSubmit={onSubmit} className="w-full flex justify-between">
             <div className='w-full items-center'>
               <label htmlFor="search" className="sr-only">
                 Search
@@ -51,20 +65,22 @@ const Navbar = () => {
                   value={search}
                   autoComplete='off'
                   className="block w-full rounded-bl-md rounded-tl-md border border-blue-500 bg-black text-white py-3 pl-10 pr-3 leading-5 placeholder-gray-500 focus:border-blue-500 focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-blue-500 sm:text-sm"
-                  placeholder="Search"
+                  placeholder="Search your favorite character"
                   type="text"
                 />
               </div>
             </div>
-            <Link href={`/search?term=${search}`}>
-              <Button type='submit' className='text-white rounded-br-md rounded-tr-md border border-blue-500 py-2 px-5 leading-5 placeholder-gray-500 focus:border-blue-500 focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-blue-500 sm:text-sm'>Search</Button>
-            </Link>
+            <Button type='submit' className='text-white rounded-br-md rounded-tr-md border border-blue-500 py-2 px-5 leading-5 placeholder-gray-500 focus:border-blue-500 focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-blue-500 sm:text-sm'>Search</Button>
           </form>
           {
             search ?
-              <Link href={`/`}>
-                <Button onClick={() => { setSearch("") }} className='text-red-500 rounded-md border border-blue-500 py-3 px-4 leading-5 placeholder-gray-500 focus:border-blue-500 focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-blue-500 sm:text-sm'>Clear</Button>
-              </Link> : null
+              <Button onClick={() => { setSearch(""); router.push(`/`) }} className='text-red-500 rounded-md border border-blue-500 py-3 px-4 leading-5 placeholder-gray-500 focus:border-blue-500 focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-blue-500 sm:text-sm'>Clear</Button>
+              : null
+          }
+        </div>
+        <div className='text-red-500 text-xs p-3'>
+          {
+            inputError ? "Please enter search term" : ""
           }
         </div>
       </div>

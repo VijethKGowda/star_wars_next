@@ -36,11 +36,9 @@ export default function Home() {
           {data?.pages.map((group, i) => {
             return (
               <Fragment key={i}>
-                {group.data.results.map((item, index) => (
-                  <Fragment key={item.birth_year + index}>
-                    <Card id={item.url.match(/\d+/)[0]} item={item} />
-                  </Fragment>
-                ))}
+                {group.data.results.length ? group.data.results.map((item, index) => (
+                  <Card id={item.url.match(/\d+/)[0]} item={item} key={item.birth_year + index} />
+                )) : <h1 className='text-white w-full text-center mt-10'>No character found.</h1>}
               </Fragment>
             )
           })}

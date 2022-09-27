@@ -21,11 +21,11 @@ export default function Search() {
 
 
   if (isLoading) {
-    return <h2 className='text-white w-full text-center mt-10'>Loading...</h2>
+    return <h1 className='text-white w-full text-center mt-10'>Loading...</h1>
   }
 
   if (isError) {
-    return <h2 className='text-white w-full text-center mt-10'>{error.message}</h2>
+    return <h1 className='text-white w-full text-center mt-10'>{error.message}</h1>
   }
 
   return (
@@ -42,9 +42,9 @@ export default function Search() {
           {data?.pages.map((group, i) => {
             return (
               <Fragment key={i}>
-                {group.data.results.map((item, index) => (
+                {group.data.results.length ? group.data.results.map((item, index) => (
                   <Card id={item.url.match(/\d+/)[0]} item={item} key={item.birth_year + index} />
-                ))}
+                )) : <h1 className='text-white w-full text-center mt-10'>No result found for the search term.</h1>}
               </Fragment>
             )
           })}

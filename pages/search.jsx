@@ -6,7 +6,7 @@ import { Fragment } from 'react';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import Button from '../components/Button';
 import Card from '../components/Card';
-import { useFetchCharacters } from './api/swapi';
+import { useFetchCharacters } from '../api/swapi';
 
 export default function Search() {
   const { query } = useRouter();
@@ -52,7 +52,7 @@ export default function Search() {
         </div>
         <div className="mt-10 mx-auto w-full">
           {hasNextPage ?
-            <Button onClick={() => { isFetchingNextPage ? null : fetchNextPage() }}>
+            <Button onClick={fetchNextPage} disable={isFetchingNextPage}>
               {isFetchingNextPage ? 'Loading...' : 'Load More'}
             </Button> : null
           }

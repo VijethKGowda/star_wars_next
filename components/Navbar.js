@@ -20,7 +20,6 @@ const Navbar = () => {
   useEffect(() => {
     if (query?.term !== undefined)
       setSearch(query?.term)
-    else setSearch("")
   }, [query?.term])
 
   return (
@@ -35,7 +34,7 @@ const Navbar = () => {
         </div>
 
         <div className='flex flex-col md:flex-row mt-3 gap-4 md:gap-2'>
-          <div className="w-full flex justify-between">
+          <form onSubmit={() => { router.push(`/search?term=${search}`) }} className="w-full flex justify-between">
             <div className='w-full items-center'>
               <label htmlFor="search" className="sr-only">
                 Search
@@ -53,14 +52,13 @@ const Navbar = () => {
                   className="block w-full rounded-bl-md rounded-tl-md border border-blue-500 bg-black text-white py-3 pl-10 pr-3 leading-5 placeholder-gray-500 focus:border-blue-500 focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-blue-500 sm:text-sm"
                   placeholder="Search"
                   type="text"
-                  onKeyDown={(e) => { e.key === 'Enter' && search ? router.push(`/search?term=${search}`) : null }}
                 />
               </div>
             </div>
             <Link href={`/search?term=${search}`}>
-              <button className='text-white rounded-br-md rounded-tr-md border border-blue-500 bg-black py-2 px-5 leading-5 placeholder-gray-500 focus:border-blue-500 focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-blue-500 sm:text-sm'>Search</button>
+              <button type='submit' className='text-white rounded-br-md rounded-tr-md border border-blue-500 bg-black py-2 px-5 leading-5 placeholder-gray-500 focus:border-blue-500 focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-blue-500 sm:text-sm'>Search</button>
             </Link>
-          </div>
+          </form>
           {
             search ?
               <Link href={`/`}>

@@ -3,7 +3,7 @@ import Head from 'next/head'
 import { Disclosure } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/24/outline'
 import Router, { useRouter } from 'next/router';
-import { useFetchFilms, useFetchSingleCharacter } from './api/swapi';
+import { useFetchFilms, useFetchSingleCharacter } from '../api/swapi';
 import { Fragment } from 'react';
 
 function classNames(...classes) {
@@ -13,8 +13,8 @@ function classNames(...classes) {
 const Stat = ({ value, title }) => {
   return (
     <div className="flex flex-col">
-      <span data-testid="stat-id" className="text-sm text-yellow-400">{title}</span>
-      <span className="text-white text-xl">{value}</span>
+      <h2 data-testid="stat-id" className="text-sm text-yellow-400">{title}</h2>
+      <h1 className="text-white text-xl">{value}</h1>
     </div>
   )
 }
@@ -37,7 +37,7 @@ const FilmList = (url) => {
           <>
             <dt className="text-lg">
               <Disclosure.Button className="flex w-full items-start justify-between text-left text-gray-400">
-                <span className="font-medium text-white">{data?.data.title}</span>
+                <h1 className="font-medium text-white">{data?.data.title}</h1>
                 <span className="ml-6 flex h-7 items-center">
                   <ChevronDownIcon
                     className={classNames(open ? '-rotate-180' : 'rotate-0', 'h-6 w-6 transform')}
@@ -73,7 +73,6 @@ export default function Character() {
         />
       </Head>
 
-
       <main className="mt-9" >
         {
           isLoading ? <div className='text-white w-full text-center mt-10'>Loading...</div> :
@@ -86,13 +85,13 @@ export default function Character() {
                   <div className='text-white cursor-pointer' onClick={() => Router.back()}>Go Back</div>
                 </div>
                 <div className='mt-9 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 p-12 border bg-gray-900 border-gray-500 rounded-lg'>
-                  <Stat value={data?.data.height} title={"Height"} />
-                  <Stat value={data?.data.gender} title={"Gender"} />
-                  <Stat value={data?.data.mass} title={"Mass"} />
-                  <Stat value={data?.data.hair_color} title={"Hair Color"} />
-                  <Stat value={data?.data.eye_color} title={"Eye Color"} />
-                  <Stat value={data?.data.skin_color} title={"Skin Color"} />
-                  <Stat value={data?.data.birth_year} title={"Birth Year"} />
+                  <Stat value={data?.data.height} title="Height" />
+                  <Stat value={data?.data.gender} title="Gender" />
+                  <Stat value={data?.data.mass} title="Mass" />
+                  <Stat value={data?.data.hair_color} title="Hair Color" />
+                  <Stat value={data?.data.eye_color} title="Eye Color" />
+                  <Stat value={data?.data.skin_color} title="Skin Color" />
+                  <Stat value={data?.data.birth_year} title="Birth Year" />
                 </div>
                 <div className='text-gray-200 font-semibold text-2xl mt-9'>{data?.data?.films?.length} Films of {data?.data.name}</div>
                 <div className='mb-9'>

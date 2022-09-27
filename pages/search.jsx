@@ -3,7 +3,7 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import Head from 'next/head'
 import { useRouter } from 'next/router';
-import { Fragment, useMemo } from 'react';
+import { useMemo } from 'react';
 import Button from '../components/Button';
 import Card from '../components/Card';
 

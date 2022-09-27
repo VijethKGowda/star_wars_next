@@ -24,8 +24,8 @@ const FilmList = (url) => {
   const fetchFilm = () => {
     return axios.get(url.url)
   }
-  const { isLoading, isError, data, error } = useQuery(['film', url.url], fetchFilm, { enabled: !!url.url })
 
+  const { isLoading, isError, data, error } = useQuery(['film', url.url], fetchFilm, { enabled: !!url.url })
 
   if (isLoading) {
     return <h2 className='text-white w-full'>Loading...</h2>
@@ -72,7 +72,6 @@ export default function Character() {
   }
   const { isLoading, isError, data, error } = useQuery(['character', query?.id], fetchCharacter, { enabled: !!query?.id })
 
-
   return (
     <>
       <Head>
@@ -82,7 +81,6 @@ export default function Character() {
           content="noindex"
         />
       </Head>
-
       <main className="mt-9" >
         {
           isLoading ? <div className='text-white w-full text-center mt-10'>Loading...</div> :
@@ -115,7 +113,6 @@ export default function Character() {
                 </div>
               </>
         }
-
       </main>
     </>
   )

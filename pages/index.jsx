@@ -49,7 +49,7 @@ export default function Home() {
           {hasNextPage ?
             <Button className="rounded-md w-full" onClick={() => fetchNextPage()} disable={isFetchingNextPage}>
               {isFetchingNextPage ? 'Loading...' : 'Load More'}
-            </Button> : null
+            </Button> : <h1 className='text-white w-full text-center mt-10'>End of the list</h1>
           }
         </div>
       </main >
